@@ -1,6 +1,6 @@
 terraform {
   backend "local" { 
-    Workspace_dir = "/opt/buckets/frizqui"
+    workspace_dir = "/opt/buckets/frizqui"
   }
   
 }
