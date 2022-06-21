@@ -22,7 +22,14 @@ pipeline {
         stage ("Terraform plan") {
             when { not { branch 'main' } }
             steps {
-                sh "terraform plan"
+                script{    
+                                               
+                    withCredentials([usernamePassword(credentialsId: 'AKIA3IT5FKBPTR2FSLRS', usernameVariable: 'accessKeyID', passwordVariable: 'accessKeySecret')]){
+                        sh "terraform plan -var var_aws_access_key=${accessKeyID}  -var var_aws_secret_key=${accessKeySecret}  "
+                        
+                    }
+                }
+                
             }
         }
         stage ("Terraform apply") {
@@ -32,8 +39,8 @@ pipeline {
                                                
                     withCredentials([usernamePassword(credentialsId: 'AKIA3IT5FKBPTR2FSLRS', usernameVariable: 'accessKeyID', passwordVariable: 'accessKeySecret')]){
                         sh """
-                            terraform plan 
-                            terraform apply --auto-approve
+                            terraform plan -var var_aws_access_key=${accessKeyID}  -var var_aws_secret_key=${accessKeySecret}
+                            terraform apply --auto-approve -var var_aws_access_key=${accessKeyID}  -var var_aws_secret_key=${accessKeySecret}
                         """
                         
                     }
