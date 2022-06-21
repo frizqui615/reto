@@ -28,10 +28,20 @@ pipeline {
         stage ("Terraform apply") {
             when { branch 'main' }
             steps {
-                sh """
-                    terraform plan 
-                    terraform apply 
-                """
+                script{    
+                                               
+                    withCredentials([usernamePassword(credentialsId: 'AKIA3IT5FKBPTR2FSLRS', usernameVariable: 'accessKeyID', passwordVariable: 'accessKeySecret')]){
+                        sh """
+                            terraform plan
+                            terraform apply -auto-approve
+                        """
+                        
+                    }
+                }
+//                sh """
+//                    terraform plan 
+//                    terraform apply -auto-approve 
+//                """
             }
         }
         stage ("Terraform show") {
