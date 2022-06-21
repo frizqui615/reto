@@ -33,7 +33,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'AKIA3IT5FKBPTR2FSLRS', usernameVariable: 'accessKeyID', passwordVariable: 'accessKeySecret')]){
                         sh """
                             terraform plan 
-                            terraform apply -input=false -auto-approve
+                            terraform apply --auto-approve
                         """
                         
                     }
