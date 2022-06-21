@@ -25,7 +25,7 @@ pipeline {
                 script{    
                                                
                     withCredentials([usernamePassword(credentialsId: 'AKIA3IT5FKBPTR2FSLRS', usernameVariable: 'accessKeyID', passwordVariable: 'accessKeySecret')]){
-                        sh "terraform plan -var var_aws_access_key=${accessKeyID}  -var var_aws_secret_key=${accessKeySecret}  "
+                        sh "terraform plan -var var_aws_access_key=${accessKeyID}  -var var_aws_secret_key=${accessKeySecret}"
                         
                     }
                 }
