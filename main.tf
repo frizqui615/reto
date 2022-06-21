@@ -1,5 +1,5 @@
 resource "aws_s3_bucket_website_configuration" "example" {
-  bucket = mapfre-gitops-frizqui
+  bucket = "mapfre-gitops-frizqui"
 
   index_document {
     suffix = "index.html"
