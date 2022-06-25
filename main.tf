@@ -1,8 +1,8 @@
 provider "aws" {
   region  = "eu-west-1"
-  access_key = "var_aws_access_key"
-  secret_key = "var_aws_secret_key"
-  //profile = "default"
+ // access_key = "var_aws_access_key"
+ // secret_key = "var_aws_secret_key"
+ // profile = "default"
 }
 
 resource "aws_s3_bucket_website_configuration" "example" {

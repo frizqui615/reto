@@ -32,6 +32,16 @@ pipeline {
                 
             }
         }
+
+        stage("test") {
+            steps {
+
+                sh """
+                    ansible-playbook copyhtml.yml --check                
+                """
+            }
+        }
+
         stage ("Terraform apply") {
             when { branch 'main' }
             steps {
@@ -39,6 +49,7 @@ pipeline {
               sh """
                  terraform plan 
                  terraform apply --auto-approve 
+                 ansible-playbook copyhtml.yml
                 """
             }
         }
@@ -60,6 +71,6 @@ pipeline {
         ansiColor('xterm')
         buildDiscarder(logRotator(artifactNumToKeepStr: '20',artifactDaysToKeepStr: '30'))
         disableConcurrentBuilds()
-        timeout(time: 30, unit: 'MINUTES')
+        timeout(time: 15, unit: 'MINUTES')
     }
 }
