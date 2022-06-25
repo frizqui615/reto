@@ -4,9 +4,9 @@ variable "var_aws_region" {
 }
 variable "var_aws_access_key" {
      type = string
-#     default = "Access key to AWS console"
+     default = "1121"
 }
 variable "var_aws_secret_key" {
      type = string
-#    default = "Secret key to AWS console"
+    default = "2212"
 }
