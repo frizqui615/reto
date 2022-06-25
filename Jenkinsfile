@@ -8,6 +8,12 @@ cfg.commitValidation.enabled = false
 
 pipeline {
     agent any
+
+    environment {
+        AWS_KEY_ID     = credentials('AWS_KEY_ID')
+        AWS_SECRET_KEY = credentials('AWS_SECRET_KEY')
+    }  
+
     stages {
         stage ('Initialize') {
             steps  {
@@ -22,33 +28,18 @@ pipeline {
         stage ("Terraform plan") {
             when { not { branch 'main' } }
             steps {
-                script{    
-                                               
-                    withCredentials([usernamePassword(credentialsId: 'AKIA3IT5FKBPTR2FSLRS', usernameVariable: 'accessKeyID', passwordVariable: 'accessKeySecret')]){
-                        sh "terraform plan -var var_aws_access_key=${accessKeyID}  -var var_aws_secret_key=${accessKeySecret}"
-                        
-                    }
-                }
+                sh "terraform plan"
                 
             }
         }
         stage ("Terraform apply") {
             when { branch 'main' }
             steps {
-                script{    
-                                               
-                    withCredentials([usernamePassword(credentialsId: 'AKIA3IT5FKBPTR2FSLRS', usernameVariable: 'accessKeyID', passwordVariable: 'accessKeySecret')]){
-                        sh """
-                            terraform plan -var var_aws_access_key=${accessKeyID}  -var var_aws_secret_key=${accessKeySecret}
-                            terraform apply --auto-approve -var var_aws_access_key=${accessKeyID}  -var var_aws_secret_key=${accessKeySecret}
-                        """
-                        
-                    }
-                }
-//                sh """
-//                    terraform plan 
-//                    terraform apply -auto-approve 
-//                """
+               
+              sh """
+                 terraform plan 
+                 terraform apply --auto-approve 
+                """
             }
         }
         stage ("Terraform show") {
