@@ -38,3 +38,11 @@ resource "aws_s3_bucket_acl" "bucket_acl" {
   bucket = "mapfre-gitops-frizqui"
   acl = "public-read"
 }
+
+resource "aws_s3_object" "object" {
+  bucket = "mapfre-gitops-frizqui"
+  key    = "index.html"
+  acl    = "public-read"  
+  source = "index.html"
+  content_type = "text/html"
+}
