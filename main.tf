@@ -5,6 +5,12 @@ provider "aws" {
  // profile = "default"
 }
 
+/* create s3 bucket, WEB, public read, index.html default */
+resource "aws_s3_bucket" "web" {
+  bucket = "mapfre-gitops-frizqui"
+}
+
+
 resource "aws_s3_bucket_website_configuration" "example" {
   bucket = "mapfre-gitops-frizqui"
 
