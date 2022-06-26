@@ -8,6 +8,7 @@ provider "aws" {
 /* create s3 bucket, WEB, public read, index.html default */
 resource "aws_s3_bucket" "web" {
   bucket = "mapfre-gitops-frizqui"
+  acl = "public-read"
 }
 
 
@@ -39,10 +40,3 @@ resource "aws_s3_bucket_acl" "bucket_acl" {
   acl = "public-read"
 }
 
-resource "aws_s3_object" "object" {
-  bucket = "mapfre-gitops-frizqui"
-  key    = "index.html"
-  acl    = "public-read"  
-  source = "index.html"
-  content_type = "text/html"
-}
