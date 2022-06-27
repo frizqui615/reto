@@ -34,6 +34,7 @@ pipeline {
         }
 
         stage("test") {
+            when { not { branch 'main' } }
             steps {
 
                 sh """
