@@ -11,4 +11,5 @@
       bucket: mapfre-gitops-frizqui
       object: /index.html
       src: index.html
+      permission: public-read
       mode: put
