@@ -6,7 +6,7 @@ provider "aws" {
 }
 
 /* create s3 bucket, WEB, public read, index.html default */
-resource "aws_s3_bucket" "web" {
+  resource "aws_s3_bucket" "web" {
   bucket = "mapfre-gitops-frizqui"
   acl = "public-read"
 }
@@ -34,9 +34,9 @@ resource "aws_s3_bucket_website_configuration" "example" {
 }
 
 
-#/* resource aws_s3_bucket_acl */
-#resource "aws_s3_bucket_acl" "bucket_acl" {
-#  bucket = "mapfre-gitops-frizqui"
-#  acl = "public-read"
-#}
+/* resource aws_s3_bucket_acl */
+/resource "aws_s3_bucket_acl" "bucket_acl" {
+/  bucket = "mapfre-gitops-frizqui"
+/  acl = "public-read"
+/}
 
