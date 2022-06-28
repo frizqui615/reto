@@ -1,6 +1,6 @@
 terraform {
   backend "local" { 
-    workspace_dir = "/opt/buckets/frizqui"
+    path = "/opt/buckets/frizqui/terraform.tfstate"
   }
   
 }
