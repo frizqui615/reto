@@ -39,7 +39,7 @@ pipeline {
                 withSonarQubeEnv ('frizqui615sonar') {
                     sh '~/.sonar/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner \
                         -Dsonar.organization=frizqui615 \
-                        -Dsonar.projectKey=fran-sonar \
+                        -Dsonar.projectKey=reto \
                         -Dsonar.sources=. \
                         -Dsonar.host.url=https://sonarcloud.io \
                         -Dsonar.branch.name="$BRANCH_NAME"'
@@ -54,7 +54,7 @@ pipeline {
                 withSonarQubeEnv ('frizqui615sonar') {
                     sh "~/.sonar/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner \
                         -Dsonar.organization=frizqui615 \
-                        -Dsonar.projectKey=fran-sonar \
+                        -Dsonar.projectKey=reto \
                         -Dsonar.sources=. \
                         -Dsonar.host.url=https://sonarcloud.io \
                         -Dsonar.pullrequest.provider='GitHub' \
