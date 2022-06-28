@@ -32,7 +32,48 @@ pipeline {
                 
             }
         }
-
+   stage ("Sonar: Regular Branch Check") {
+            when { not { branch 'PR-*' } }
+            steps {
+                // Make analysis of the branch with SonarScanner and send it to SonarCloud
+                withSonarQubeEnv ('frizqui615sonar') {
+                    sh '~/.sonar/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner \
+                        -Dsonar.organization=frizqui615 \
+                        -Dsonar.projectKey=fran-sonar \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=https://sonarcloud.io \
+                        -Dsonar.branch.name="$BRANCH_NAME"'
+                }
+            }
+        }
+        stage ("Sonar: PR Check") {
+            when { branch 'PR-*' }
+            steps {
+                // Make analysis of the PR with SonarScanner and send it to SonarCloud
+                // Reference: https://blog.jdriven.com/2019/08/sonarcloud-github-pull-request-analysis-from-jenkins/
+                withSonarQubeEnv ('frizqui615sonar') {
+                    sh "~/.sonar/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner \
+                        -Dsonar.organization=frizqui615 \
+                        -Dsonar.projectKey=fran-sonar \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=https://sonarcloud.io \
+                        -Dsonar.pullrequest.provider='GitHub' \
+                        -Dsonar.pullrequest.github.repository='frizqui615/reto' \
+                        -Dsonar.pullrequest.key='${env.CHANGE_ID}' \
+                        -Dsonar.pullrequest.branch='${env.CHANGE_BRANCH}'"
+                }
+            }
+        }
+        stage ("Sonar: Wait for QG") {
+            steps {
+                // Wait for QuaityGate webhook result
+                timeout(time: 30, unit: 'MINUTES') {
+                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+                    // true = set pipeline to UNSTABLE, false = don't
+                    waitForQualityGate abortPipeline: false
+                }
+            }
+        }
         stage("test") {
             when { not { branch 'main' } }
             steps {
