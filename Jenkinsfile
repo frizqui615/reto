@@ -33,10 +33,10 @@ pipeline {
             }
         }
    stage ("Sonar: Regular Branch Check") {
-            when { not { branch 'main' } }
+            when { not { branch 'PR-*' } }
             steps {
                 // Make analysis of the branch with SonarScanner and send it to SonarCloud
-                withSonarQubeEnv ('RcsSonar') {
+                withSonarQubeEnv ('frizqui615sonar') {
                     sh '~/.sonar/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner \
                         -Dsonar.organization=frizqui615 \
                         -Dsonar.projectKey=frizqui615-sonar \
@@ -47,11 +47,11 @@ pipeline {
             }
         }
         stage ("Sonar: PR Check") {
-            when { branch 'main' }
+            when { branch 'PR-*' }
             steps {
                 // Make analysis of the PR with SonarScanner and send it to SonarCloud
                 // Reference: https://blog.jdriven.com/2019/08/sonarcloud-github-pull-request-analysis-from-jenkins/
-                withSonarQubeEnv ('RcsSonar') {
+                withSonarQubeEnv ('frizqui615sonar') {
                     sh "~/.sonar/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner \
                         -Dsonar.organization=frizqui615 \
                         -Dsonar.projectKey=frizqui615-sonar \
