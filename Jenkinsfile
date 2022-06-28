@@ -33,7 +33,7 @@ pipeline {
             }
         }
    stage ("Sonar: Regular Branch Check") {
-            when { not { branch 'main' } }
+            when { not { branch 'PR-*' } }
             steps {
                 // Make analysis of the branch with SonarScanner and send it to SonarCloud
                 withSonarQubeEnv ('frizqui615sonar') {
@@ -47,7 +47,7 @@ pipeline {
             }
         }
         stage ("Sonar: PR Check") {
-            when { branch 'main' }
+            when { branch 'PR-*' }
             steps {
                 // Make analysis of the PR with SonarScanner and send it to SonarCloud
                 // Reference: https://blog.jdriven.com/2019/08/sonarcloud-github-pull-request-analysis-from-jenkins/
